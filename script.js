@@ -87,12 +87,12 @@ function containsNumbers(str) {
 }
 //Tests for Upper Case
 function containsUpper(str) {
-  const regex = /[A-Z]/;
+  const regex = /^[A-Z]/;
   return regex.test(str);
 }
 //Tests for Lower Case
 function containsLower(str) {
-  const regex = /[a-z]/;
+  const regex = /^[a-z]/;
   return regex.test(str);
 }
 //Generate the password
@@ -105,9 +105,9 @@ function generatePassword(length, lower, upper, numeric, special) {
 // If both match write to output string 
   do {
     tempchar = validChars[randNum()];
-     if (lower && containsLower(tempchar)) {
+     if (upper && containsUpper(tempchar)) {
       generated = generated + tempchar;
-    } else if (upper && containsUpper(tempchar)) {
+    } else if (lower && containsLower(tempchar)) {
       generated = generated + tempchar;
     } else if (numeric && containsNumbers(tempchar)) {
       generated = generated + tempchar;
