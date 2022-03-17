@@ -15,114 +15,26 @@ var allowNumeric = "";
 var allowSpecial = "";
 var plen = 0;
 
-var validChars = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "!",
-  '"',
-  "#",
-  "$",
-  "%",
-  "&",
-  "'",
-  "(",
-  ")",
-  "*",
-  "+",
-  ",",
-  "-",
-  ".",
-  "/",
-  ":",
-  ";",
-  "<",
-  "=",
-  ">",
-  "?",
-  "@",
-  "[",
-  "\\",
-  "^",
-  "_",
-  "`",
-  "{",
-  "|",
-  "}",
-  "~",
-];
+var validChars = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","!",'"',"#","$","%","&","'","(",")","*","+",",","-",".","\/",":",";","<","=",">","?","@","\[","\]","\\","^","_","`","{","|","}","~"," ",];
+ 
 
 // Write password to the #password input
 function writePassword() {
   getUserInput();
-  
+
   //Validate input
   validateInput(passwordInpt);
 
   if (passwordInpt.validLength && passwordInpt.validType) {
-    
     //Generate Password
-    var password = generatePassword(passwordInpt.len,passwordInpt.lower,passwordInpt.upper,passwordInpt.numeric,passwordInpt.special);
-    
+    var password = generatePassword(
+      passwordInpt.len,
+      passwordInpt.lower,
+      passwordInpt.upper,
+      passwordInpt.numeric,
+      passwordInpt.special
+    );
+
     //Output Password
     var passwordText = document.querySelector("#password");
 
@@ -132,6 +44,7 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
 
 function validateInput(password) {
   if (password.len >= 8 && password.len <= 128) {
@@ -149,7 +62,7 @@ function validateInput(password) {
   } else {
     password.validType = false;
   }
-  
+
   if (!passwordInpt.validLength) {
     alert("You must select a length between 8-128");
   }
@@ -169,17 +82,17 @@ function containsSpecialChars(str) {
 }
 
 function containsNumbers(str) {
-  const regex = /^[0-9]+$/
+  const regex = /^[0-9]+$/;
   return regex.test(str);
 }
 
 function containsUpper(str) {
-  const regex = /[A-Z]/
+  const regex = /[A-Z]/;
   return regex.test(str);
 }
 
 function containsLower(str) {
-  const regex = /[a-z]/
+  const regex = /[a-z]/;
   return regex.test(str);
 }
 
@@ -188,7 +101,7 @@ function generatePassword(length, lower, upper, numeric, special) {
   console.log(lower);
   var generated = "";
   var tempchar = "";
-  var escapeChar = /[\'\"\[\]]/
+  var escapeChar = /[\'\"\[\]]/;
   do {
     tempchar = validChars[randNum()];
     console.log("tempch is: " + tempchar);
@@ -200,35 +113,35 @@ function generatePassword(length, lower, upper, numeric, special) {
     } else if (numeric && containsNumbers(tempchar)) {
       generated = generated + tempchar;
     } else if (special && containsSpecialChars(tempchar)) {
-      	generated = generated + tempchar;
-      }
+      generated = generated + tempchar;
+    }
   } while (generated.length < length);
-  console.log(generated)
+  console.log(generated);
   return generated;
 }
 
 function getUserInput() {
   //Input prompts
-  passwordInpt.len=prompt("Choose Password Length (8-128)");
+  passwordInpt.len = prompt("Choose Password Length (8-128)");
   console.log(passwordInpt.len);
-  allowLower=prompt("Lower Case Allowed? (Y/N)");
+  allowLower = prompt("Lower Case Allowed? (Y/N)");
   console.log(allowLower);
   console.log(allowLower.toUpperCase());
   //update the correct boolean on Y
   if (allowLower.toUpperCase() == "Y") {
     passwordInpt.lower = true;
   }
-  allowUpper=prompt("Upper Case Allowed? (Y/N)");
+  allowUpper = prompt("Upper Case Allowed? (Y/N)");
   console.log(allowUpper);
   if (allowUpper.toUpperCase() == "Y") {
     passwordInpt.upper = true;
   }
-  allowNumeric=prompt("Numeric Case Allowed? (Y/N)");
+  allowNumeric = prompt("Numeric Case Allowed? (Y/N)");
   console.log(allowNumeric);
   if (allowNumeric.toUpperCase() == "Y") {
     passwordInpt.numeric = true;
   }
-  allowSpecial=prompt("Special Case Allowed? (Y/N)");
+  allowSpecial = prompt("Special Case Allowed? (Y/N)");
   console.log(allowSpecial);
   if (allowSpecial.toUpperCase() == "Y") {
     passwordInpt.special = true;
