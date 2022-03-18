@@ -146,10 +146,12 @@ if (special){
   console.log("specialChars:")
   console.log(specialChars);
 } 
+  console.log(charTypeArray)
   //For the given password length, choose an array index at random (and therefor a character type at random)
   // and a character in that index also at random then add to the generated password variable
   for (i=0; i< length; i++) {
-    generated=generated + charTypeArray[randArray(charTypeArray)].charAt(randNum(0,length-1))
+    generated=generated + charTypeArray[randArray(charTypeArray)].charAt(i)
+    console.log(generated)
   }
 
  //There is an edge case where if truly random, the generated password might not have
@@ -157,31 +159,23 @@ if (special){
  //has one of each character type
 for (i=0; i< length; i++) {
   if((lower) && (validLower.includes(generated.charAt(i)))) {
-      console.log(i)
-      console.log("Contains Lower")
       lowerTest=true;
     }
 }
 for (i=0; i< length; i++) {
     if((upper) && (validUpper.includes(generated.charAt(i)))) {
-        console.log(i)
-        console.log("Contains Upper")
         upperTest=true;
       }
     } 
   
   for (i=0; i< length; i++) {
     if((numeric) && (validNumber.includes(generated.charAt(i)))) {
-        console.log(i)
-        console.log("Contains Numeric")
         numericTest=true;
       }
     }
   
   for (i=0; i< length; i++) {
     if((special) && (validSpecial.includes(generated.charAt(i)))) {
-        console.log(i)
-        console.log("Contains Special")
         specialTest=true;
       }
     }
@@ -189,7 +183,6 @@ for (i=0; i< length; i++) {
 //the booleans match between selected type and tested type. If all the booleans match,
 //test is successful. If not, generate a new pass with the same criteria
   if (((lower === lowerTest) && (upper === upperTest) && (numeric == numericTest) && (special == specialTest))) {
-    console.log("All tests pass!")
     return generated
   } else {
   generatePassword(length, lower, upper, numeric, special)
