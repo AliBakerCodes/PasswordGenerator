@@ -100,6 +100,11 @@ function randNum(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min); 
   };
 
+  //Function to esecape special characters on output (was causing undefined)
+  function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
 //Generate the password
 function generatePassword(length, lower, upper, numeric, special) {
 
@@ -183,11 +188,13 @@ for (i=0; i< length; i++) {
 //the booleans match between selected type and tested type. If all the booleans match,
 //test is successful. If not, generate a new pass with the same criteria
   if (((lower === lowerTest) && (upper === upperTest) && (numeric == numericTest) && (special == specialTest))) {
+    generated=escapeRegex(generated)
     return generated
   } else {
   generatePassword(length, lower, upper, numeric, special)
 }
 }
+
 
 
 //Get user inputs for password length and character type using prompts
