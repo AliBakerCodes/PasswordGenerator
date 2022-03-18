@@ -1,5 +1,4 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
 var passwordInpt = {
   len: 0,
   lower: false,
@@ -13,22 +12,22 @@ var allowLower = "";
 var allowUpper = "";
 var allowNumeric = "";
 var allowSpecial = "";
-var plen = 0;
 
 var validUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var validLower = "abcdefghijklmnopqrstuvwxyz"
 var validNumber ="1234567890"
 var validSpecial =" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
- 
-
+var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
-  getUserInput();
 
-  //Validate input
-  validateLengthInput(passwordInpt);
-  validateTypeInput(passwordInpt);
-//If validated, 
+  getUserInputLength();
+  // Break if Length fails validation
+  if (passwordInpt.validLength) {
+    getUserInputType();
+  }
+
+  //Validate input. If validated, 
   if (passwordInpt.validLength && passwordInpt.validType) {
     //Generate Password
     var password = generatePassword(
@@ -55,9 +54,6 @@ function validateLengthInput(password) {
     password.validLength = true;
   } else {
     password.validLength = false;
-    if (!passwordInpt.validLength) {
-      alert("You must select a length between 8-128");
-    }
   }
 }
 //Validate password type input. Throw an error at least 1 character type not picked"
@@ -71,11 +67,6 @@ function validateLengthInput(password) {
     password.validType = true;
   } else {
     password.validType = false;
-  }
-
-  
-  if (!passwordInpt.validType) {
-    alert("You must select at least one valid type");
   }
 }
 
@@ -99,7 +90,6 @@ function generatePassword(length, lower, upper, numeric, special) {
   var upperTest=false;
   var numericTest=false;
   var specialTest=false;
-  var numOfArrays=0
   var uppercase =""
   var lowercase=""
   var numbers=""
@@ -111,7 +101,6 @@ function generatePassword(length, lower, upper, numeric, special) {
     lowercase=lowercase+validLower.charAt(randNum(0,25));
   }
   charTypeArray.push(lowercase)
-  numOfArrays++
   console.log("lowercase:")
   console.log(lowercase);
 }
@@ -120,7 +109,6 @@ if (upper){
     uppercase=uppercase+validUpper.charAt(randNum(0,25));
   }
   charTypeArray.push(uppercase)
-  numOfArrays++
   console.log("uppercase:")
   console.log(uppercase);
 }
@@ -128,7 +116,6 @@ if (numeric){
   for (i = 0; i < length; i++) {
     numbers=numbers+validNumber.charAt(randNum(0,9));
   }
-  numOfArrays++
   charTypeArray.push(numbers)
   console.log("numbers:")
   console.log(numbers);
@@ -137,9 +124,10 @@ if (special){
   for (i = 0; i < length; i++) {
     specialChars=specialChars+validSpecial.charAt(randNum(0,32));
   }
-  numOfArrays++
   charTypeArray.push(specialChars)
- 
+  console.log("specialChars:")
+  console.log(specialChars);
+} 
   //For the given password length, choose an array index at random (and therefor a character type at random)
   // and a character in that index also at random then add to the generated password variable
   for (i=0; i< length; i++) {
@@ -189,14 +177,21 @@ for (i=0; i< length; i++) {
   generatePassword(length, lower, upper, numeric, special)
 }
 }
-}
 
 
 //Get user inputs for password length and character type using prompts
 //Sanitize inputs to uppercase
-function getUserInput() {
+function getUserInputLength() {
   //Input prompts
   passwordInpt.len = prompt("Choose Password Length (8-128)");
+  //Validate Password Length Input
+  validateLengthInput(passwordInpt);
+  if (!passwordInpt.validLength) {
+    alert("You must select a length between 8-128");
+  } 
+}
+
+  function getUserInputType() {
   allowLower = prompt("Lower Case Allowed? (Y/N)");
   //update the correct boolean on Y
   if (allowLower.toUpperCase() == "Y") {
@@ -213,5 +208,9 @@ function getUserInput() {
   allowSpecial = prompt("Special Case Allowed? (Y/N)");
   if (allowSpecial.toUpperCase() == "Y") {
     passwordInpt.special = true;
+  }
+  validateTypeInput(passwordInpt);
+  if (!passwordInpt.validType) {
+    alert("You must select at least one valid type");
   }
 }
