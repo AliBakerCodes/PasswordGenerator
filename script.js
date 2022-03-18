@@ -153,7 +153,8 @@ if (special){
 } 
   console.log(charTypeArray)
   //For the given password length, choose an array index at random (and therefor a character type at random)
-  // and a character in that index also at random then add to the generated password variable
+  // and a character in that array. Since the characters were chosen at random when the array was created, they should be random as well. 
+  //Then add to the generated password variable
   for (i=0; i< length; i++) {
     generated=generated + charTypeArray[randArray(charTypeArray)].charAt(i)
     console.log(generated)
@@ -208,7 +209,7 @@ function getUserInputLength() {
     alert("You must select a length between 8-128");
   } 
 }
-
+//Get user inputs and validate on input
   function getUserInputType() {
   allowLower = prompt("Lower Case Allowed? (Y/N)");
   //update the correct boolean on Y
