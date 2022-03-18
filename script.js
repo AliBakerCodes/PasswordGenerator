@@ -26,8 +26,9 @@ function writePassword() {
   getUserInput();
 
   //Validate input
-  validateInput(passwordInpt);
-
+  validateLengthInput(passwordInpt);
+  validateTypeInput(passwordInpt);
+//If validated, 
   if (passwordInpt.validLength && passwordInpt.validType) {
     //Generate Password
     var password = generatePassword(
@@ -48,14 +49,19 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-//Validates password inputs. Throw an error if password number out of 8-128 range 
-//or at least 1 character type not picked"
-function validateInput(password) {
+//Validates password length input. Throw an error if password number out of 8-128 range 
+function validateLengthInput(password) {
   if (password.len >= 8 && password.len <= 128) {
     password.validLength = true;
   } else {
     password.validLength = false;
+    if (!passwordInpt.validLength) {
+      alert("You must select a length between 8-128");
+    }
   }
+}
+//Validate password type input. Throw an error at least 1 character type not picked"
+  function validateTypeInput(password) {
   if (
     password.lower != false ||
     password.upper != false ||
@@ -67,13 +73,12 @@ function validateInput(password) {
     password.validType = false;
   }
 
-  if (!passwordInpt.validLength) {
-    alert("You must select a length between 8-128");
-  }
+  
   if (!passwordInpt.validType) {
     alert("You must select at least one valid type");
   }
 }
+
 // Randomly select a number between 0 and the number of allowed characters
 function randArray(charArray) {
   var index = Math.floor(Math.random() * charArray.length);
