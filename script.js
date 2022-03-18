@@ -188,7 +188,8 @@ for (i=0; i< length; i++) {
   } else {
   generatePassword(length, lower, upper, numeric, special)
 }
-}	
+}
+}
 
 
 //Get user inputs for password length and character type using prompts
