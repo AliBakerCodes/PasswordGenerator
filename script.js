@@ -8,6 +8,7 @@ var passwordInpt = {
   validLength: false,
   validType: false,
 };
+
 var allowLower = "";
 var allowUpper = "";
 var allowNumeric = "";
@@ -17,10 +18,27 @@ var validUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var validLower = "abcdefghijklmnopqrstuvwxyz"
 var validNumber ="1234567890"
 var validSpecial =" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
 var generateBtn = document.querySelector("#generate");
+var passwordText = document.querySelector("#password");
+
+function initialze() {
+  passwordInpt['len']=0
+  passwordInpt['lower']=false
+  passwordInpt['upper']=false
+  passwordInpt['numeric']=false
+  passwordInpt['special']=false
+  passwordInpt['validLength']=false
+  passwordInpt['validType']= false
+  allowLower = "";
+  allowUpper = "";
+  allowNumeric = "";
+  allowSpecial = "";
+  passwordText.value=null;
+}
 // Write password to the #password input
 function writePassword() {
-
+  initialze()
   getUserInputLength();
   // Break if Length fails validation
   if (passwordInpt.validLength) {
@@ -39,7 +57,7 @@ function writePassword() {
     );
 
     //Output Password
-    var passwordText = document.querySelector("#password");
+    
 
     passwordText.value = password;
   }
