@@ -71,6 +71,9 @@ function validateLengthInput(password) {
   if (password.len >= 8 && password.len <= 128) {
     password.validLength = true;
   } else {
+    if (!passwordInpt.validLength) {
+      alert("Length must be between 8-128");
+    }
     password.validLength = false;
   }
 }
@@ -102,7 +105,7 @@ function randNum(min, max) {
 
   //Function to esecape special characters on output (was causing undefined)
   function escapeRegex(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^'${}()|[\]\\]/g, '\$&');
   }
 
 //Generate the password
